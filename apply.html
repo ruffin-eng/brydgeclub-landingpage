@@ -229,10 +229,17 @@
     }
     .pill:hover{ background:transparent; color:var(--ink);}
 
+    .form-error{
+      display:none; margin-top:24px; padding:14px 18px;
+      background:rgba(77,40,42,0.06); border:1px solid var(--wine);
+      border-radius:12px; color:var(--wine); font-size:14px; line-height:1.5;
+    }
+    .form-error.on{ display:block;}
     .form-actions{
-      margin-top:32px; padding-top:28px; border-top:1px solid var(--line-soft);
+      margin-top:24px; padding-top:24px; border-top:1px solid var(--line-soft);
       display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap;
     }
+    button.pill[disabled]{ opacity:0.6; cursor:wait;}
     .form-actions .legal{ font-size:12.5px; color:var(--muted); max-width:48ch; line-height:1.5;}
 
     .success{
@@ -302,7 +309,7 @@
 
   <section class="form-section">
     <div class="narrow">
-      <form class="cohort-form" id="cohortForm" onsubmit="event.preventDefault(); document.getElementById('cohortForm').style.display='none'; document.getElementById('success').classList.add('on'); window.scrollTo({top:0, behavior:'smooth'});">
+      <form class="cohort-form" id="cohortForm">
 
         <fieldset>
           <div class="fieldset-meta">Section 01</div>
@@ -402,6 +409,8 @@
           </div>
         </fieldset>
 
+        <div class="form-error" id="formError" role="alert" aria-live="polite"></div>
+
         <div class="form-actions">
           <div class="legal">By submitting you agree to our house rules and confidentiality policy. We'll never share your application outside the founding team.</div>
           <button class="pill" type="submit">Submit application <span>&rarr;</span></button>
@@ -426,5 +435,54 @@
       </div>
     </div>
   </footer>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+
+    /* ============================================================
+       SUPABASE CONFIG — paste your values here
+       Get them from: Supabase dashboard → Project Settings → API
+       The "anon public" key is safe to expose in browser code
+       (it's protected by Row Level Security on the database side).
+       ============================================================ */
+    const SUPABASE_URL      = 'https://cbtjoykmevdljudzlrwv.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNidGpveWttZXZkbGp1ZHpscnd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTQ2NDcsImV4cCI6MjA5MjM3MDY0N30.T1ncn_FOjmwDWbJLOzj9fiTKF2rmAkrav7v-Tvt2uEM';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form     = document.getElementById('cohortForm');
+    const success  = document.getElementById('success');
+    const errorBox = document.getElementById('formError');
+    const submitBtn= form.querySelector('button[type="submit"]');
+    const submitBtnHtml = submitBtn.innerHTML;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.classList.remove('on');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      const fd = new FormData(form);
+      const row = Object.fromEntries(fd.entries());
+
+      const { error } = await supabase
+        .from('applications')
+        .insert([row]);
+
+      if (error) {
+        console.error(error);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitBtnHtml;
+        errorBox.textContent =
+          'Sorry — something went wrong submitting your application. Please try again, or email hello@brydgeclub.com.';
+        errorBox.classList.add('on');
+        return;
+      }
+
+      form.style.display = 'none';
+      success.classList.add('on');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>

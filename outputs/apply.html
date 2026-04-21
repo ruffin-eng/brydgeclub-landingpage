@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apply — Brydge Club</title>
+  <meta name="description" content="Apply for the next Brydge Club cohort. Applications are reviewed by the founding team and replied to within two weeks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --wine:#4D282A;
+      --slate:#2F4A5E;
+      --sage:#829795;
+      --cream:#E8E6DF;
+      --sky:#B3C6D9;
+      --sky-deep:#8fafca;
+
+      --ink:var(--wine);
+      --paper:var(--cream);
+      --muted:#7d6d6e;
+      --line:rgba(77,40,42,0.18);
+      --line-soft:rgba(77,40,42,0.10);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+    body{
+      font-family:"Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-weight:400; font-size:16px; line-height:1.55;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;}
+    img, svg{max-width:100%; display:block;}
+
+    .label{
+      font-family:"Fraunces", serif;
+      font-variation-settings:"opsz" 14, "SOFT" 100;
+      font-weight:600; font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--sage);
+    }
+
+    /* TOP BAR — same as home page */
+    .topbar{
+      position:absolute; top:0; left:0; right:0; z-index:40;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:22px 32px;
+    }
+    .brand-mark{
+      width:36px; height:36px; border-radius:8px;
+      background:rgba(255,255,255,0.18);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.28);
+      display:flex; align-items:center; justify-content:center;
+      text-decoration:none; flex:none;
+    }
+    .brand-mark::before{
+      content:""; width:14px; height:14px;
+      background:#fff;
+      clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .nav-pills{ display:flex; gap:6px;}
+    .nav-pill{
+      background:rgba(255,255,255,0.16);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.22);
+      color:#fff;
+      padding:11px 22px;
+      border-radius:999px;
+      font-family:"Inter", sans-serif;
+      font-weight:500; font-size:11.5px; letter-spacing:0.14em;
+      text-transform:uppercase; text-decoration:none;
+      transition:background .2s ease;
+    }
+    .nav-pill:hover{ background:rgba(255,255,255,0.26);}
+    .topbar-actions{ display:flex; gap:14px; align-items:center;}
+    .back-link{
+      color:#fff; font-family:"Inter", sans-serif;
+      font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
+      text-decoration:none; padding:10px 8px; opacity:0.92;
+    }
+    .back-link:hover{ opacity:1;}
+
+    /* HERO — compact sky header */
+    .hero{
+      position:relative; overflow:hidden;
+      padding:140px 20px 70px;
+      color:#fff; text-align:center;
+      background:
+        linear-gradient(180deg, transparent 82%, var(--cream) 100%),
+        radial-gradient(ellipse 600px 110px at 22% 32%, rgba(255,255,255,0.55), transparent 65%),
+        radial-gradient(ellipse 720px 130px at 85% 26%, rgba(255,255,255,0.45), transparent 65%),
+        radial-gradient(ellipse 540px 100px at 50% 72%, rgba(255,255,255,0.4), transparent 65%),
+        radial-gradient(ellipse 700px 130px at 88% 68%, rgba(255,255,255,0.45), transparent 65%),
+        linear-gradient(180deg, #1e3a5f 0%, #2e5582 25%, #4f7ba8 55%, #87aac9 80%, #B3C6D9 95%);
+    }
+    .hero-inner{
+      max-width:960px; margin:0 auto; padding:0 20px;
+      position:relative; z-index:2;
+    }
+    .hero .eyebrow{
+      display:inline-block; padding:8px 18px; border-radius:999px;
+      background:rgba(179,198,217,0.55);
+      border:1px solid rgba(255,255,255,0.35);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase;
+      color:#1e3a5f; margin-bottom:28px;
+    }
+    .hero h1{
+      margin:0 0 22px;
+      font-family:"Fraunces", Georgia, serif;
+      font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500;
+      font-size:clamp(34px, 4.6vw, 68px);
+      line-height:1.05; letter-spacing:-0.02em;
+      color:#fff;
+      text-shadow:0 2px 20px rgba(30,58,95,0.2);
+    }
+    .hero .lede{
+      font-family:"Inter", sans-serif;
+      font-size:clamp(15px, 1.4vw, 18px);
+      color:rgba(255,255,255,0.9);
+      max-width:56ch; margin:0 auto 28px;
+      line-height:1.55;
+      text-shadow:0 1px 10px rgba(30,58,95,0.18);
+    }
+    .progress{
+      display:inline-flex; gap:12px; align-items:center;
+      padding:8px 18px; border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.22);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      font-family:"Inter", sans-serif;
+      font-weight:500; font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+      color:rgba(255,255,255,0.85);
+    }
+    .progress .step{ display:inline-flex; align-items:center; gap:8px;}
+    .progress .dot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.45);}
+    .progress .step.active .dot{ background:#fff;}
+    .progress .step.active{ color:#fff;}
+    .progress .bar{ width:18px; height:1px; background:rgba(255,255,255,0.35);}
+
+    /* FORM */
+    .form-section{ padding:48px 20px 96px; background:var(--paper);}
+    .narrow{ max-width:820px; margin:0 auto;}
+
+    form.cohort-form{
+      background:#fff;
+      border:1px solid var(--line-soft);
+      border-radius:22px;
+      padding:48px 48px 40px;
+      box-shadow:0 12px 40px rgba(30,58,95,0.08);
+    }
+    fieldset{
+      border:none; padding:0; margin:0 0 44px;
+    }
+    fieldset:last-of-type{ margin-bottom:12px;}
+    legend{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 96, "SOFT" 100;
+      font-weight:600; font-size:28px; letter-spacing:-0.01em; color:var(--ink);
+      margin-bottom:6px; padding:0; display:block;
+    }
+    legend em{ font-style:italic; color:var(--slate);}
+    .fieldset-meta{
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
+      color:var(--sage); margin-bottom:14px;
+    }
+    .field{ margin-top:22px;}
+    .field .q{
+      font-family:"Inter", sans-serif;
+      font-size:15px; font-weight:500;
+      color:var(--ink); margin:0 0 10px; line-height:1.4;
+    }
+    .field .q a{ color:var(--slate); text-decoration:underline; font-weight:500;}
+    .field .q .req{ color:var(--slate); margin-left:3px;}
+    .field .help{ font-size:13px; color:var(--muted); margin:-4px 0 10px; line-height:1.5;}
+    .field .help em{ color:var(--slate); font-style:normal; font-weight:500;}
+    .row2{ display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+    .row3{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+
+    input[type=text], input[type=email], input[type=url], input[type=tel], select, textarea{
+      width:100%; background:transparent;
+      border:none; border-bottom:1.5px solid var(--sage);
+      padding:8px 0 10px; font-family:inherit; font-size:16px; color:var(--ink);
+      outline:none; border-radius:0;
+      transition:border-color .2s ease;
+    }
+    input::placeholder, textarea::placeholder{ color:rgba(77,40,42,0.36);}
+    input:focus, select:focus, textarea:focus{ border-bottom-color:var(--wine);}
+    textarea{ resize:vertical; min-height:110px; line-height:1.5;}
+    select{
+      -webkit-appearance:none; appearance:none; background:transparent; padding-right:24px;
+      background-image:linear-gradient(45deg, transparent 50%, var(--sage) 50%), linear-gradient(135deg, var(--sage) 50%, transparent 50%);
+      background-position:calc(100% - 12px) 55%, calc(100% - 6px) 55%;
+      background-size:6px 6px, 6px 6px; background-repeat:no-repeat;
+    }
+
+    /* pill radios / chips */
+    .chip-group{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;}
+    .chip-group input{ position:absolute; opacity:0; pointer-events:none;}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 16px; border-radius:999px;
+      border:1.5px solid var(--line);
+      background:transparent;
+      font-family:"Inter", sans-serif;
+      font-size:14px; font-weight:500; color:var(--ink);
+      cursor:pointer; user-select:none;
+      transition:background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .chip:hover{ border-color:var(--wine);}
+    .chip-group input:checked + .chip{
+      background:var(--wine); color:var(--cream); border-color:var(--wine);
+    }
+
+    .fine{ font-size:12.5px; color:var(--muted); margin-top:20px;}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:14px 24px; border-radius:999px;
+      background:var(--ink); color:var(--cream);
+      border:1.5px solid var(--ink);
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:13px; letter-spacing:0.04em;
+      text-decoration:none; cursor:pointer;
+      transition:background .2s ease, color .2s ease;
+    }
+    .pill:hover{ background:transparent; color:var(--ink);}
+
+    .form-actions{
+      margin-top:32px; padding-top:28px; border-top:1px solid var(--line-soft);
+      display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap;
+    }
+    .form-actions .legal{ font-size:12.5px; color:var(--muted); max-width:48ch; line-height:1.5;}
+
+    .success{
+      background:var(--slate); color:var(--cream);
+      border-radius:22px; padding:56px 48px;
+      margin-top:20px; display:none;
+      box-shadow:0 12px 40px rgba(30,58,95,0.14);
+    }
+    .success.on{ display:block;}
+    .success h3{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500; font-size:clamp(34px, 4.5vw, 56px);
+      line-height:1.02; letter-spacing:-0.02em;
+      margin:0 0 14px; color:#fff;
+    }
+    .success p{ color:var(--sky); margin:0; font-size:16px; max-width:52ch; line-height:1.55;}
+
+    /* FOOTER */
+    footer.foot{ padding:36px 0 32px; background:var(--paper); border-top:1px solid var(--line-soft);}
+    .foot-row{
+      max-width:1180px; margin:0 auto; padding:0 32px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:20px; flex-wrap:wrap;
+    }
+    .foot-row .small{ font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--sage);}
+    .foot-links{ display:flex; gap:22px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);}
+    .foot-links a{ text-decoration:none; border-bottom:1px solid transparent;}
+    .foot-links a:hover{ border-bottom-color:var(--ink);}
+
+    @media (max-width: 720px){
+      .topbar{ padding:14px 18px;}
+      .nav-pills{ display:none;}
+      .hero{ padding:120px 16px 56px;}
+      form.cohort-form{ padding:30px 22px 28px;}
+      .row2, .row3{ grid-template-columns:1fr;}
+      .form-actions{ flex-direction:column; align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <header class="topbar">
+      <a class="brand-mark" href="index.html" aria-label="Brydge Club home"></a>
+      <nav class="nav-pills" aria-label="Primary">
+        <a class="nav-pill" href="index.html#membership">Membership</a>
+        <a class="nav-pill" href="index.html#faq">FAQ</a>
+      </nav>
+      <div class="topbar-actions">
+        <a class="back-link" href="index.html">&larr; Back to home</a>
+      </div>
+    </header>
+
+    <div class="hero-inner">
+      <span class="eyebrow">Cohort Application &middot; 2026</span>
+      <h1>Apply to join our next cohort<br/>launching May 27th.</h1>
+      <p class="lede">We read every application ourselves. Expect to hear back within two weeks — the form takes about 8&ndash;10 minutes.</p>
+      <div class="progress" aria-hidden="true">
+        <div class="step active"><span class="dot"></span>About you</div>
+        <span class="bar"></span>
+        <div class="step active"><span class="dot"></span>Your investing</div>
+        <span class="bar"></span>
+        <div class="step active"><span class="dot"></span>Fit</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="narrow">
+      <form class="cohort-form" id="cohortForm" onsubmit="event.preventDefault(); document.getElementById('cohortForm').style.display='none'; document.getElementById('success').classList.add('on'); window.scrollTo({top:0, behavior:'smooth'});">
+
+        <fieldset>
+          <div class="fieldset-meta">Section 01</div>
+          <legend>About <em>you</em></legend>
+
+          <div class="field row2">
+            <div>
+              <div class="q">First name<span class="req">*</span></div>
+              <input type="text" name="first_name" required autocomplete="given-name" />
+            </div>
+            <div>
+              <div class="q">Last name<span class="req">*</span></div>
+              <input type="text" name="last_name" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="q">Email<span class="req">*</span></div>
+            <input type="email" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="field">
+            <div class="q">LinkedIn URL<span class="req">*</span></div>
+            <input type="url" name="linkedin" required placeholder="https://linkedin.com/in/…" />
+          </div>
+
+          <div class="field row2">
+            <div>
+              <div class="q">Title<span class="req">*</span></div>
+              <input type="text" name="title" required placeholder="e.g., Product Lead" />
+            </div>
+            <div>
+              <div class="q">Company<span class="req">*</span></div>
+              <input type="text" name="company" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div class="fieldset-meta">Section 02</div>
+          <legend>Your <em>investing</em></legend>
+
+          <div class="field">
+            <div class="q">Are you an accredited investor? See <a href="https://www.sec.gov/education/capitalraising/building-blocks/accredited-investor" target="_blank" rel="noopener">SEC Guidelines</a>.<span class="req">*</span></div>
+            <p class="help"><em>*</em> Most people qualify by earning $200K individually or $300K with a spouse.</p>
+            <div class="chip-group">
+              <label><input type="radio" name="accredited" value="yes" required><span class="chip">Yes</span></label>
+              <label><input type="radio" name="accredited" value="no"><span class="chip">No</span></label>
+              <label><input type="radio" name="accredited" value="unsure"><span class="chip">I'm not sure</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="q">How many angel investments have you made to date?<span class="req">*</span></div>
+            <div class="chip-group">
+              <label><input type="radio" name="investments_made" value="0" required><span class="chip">0</span></label>
+              <label><input type="radio" name="investments_made" value="1-5"><span class="chip">1–5</span></label>
+              <label><input type="radio" name="investments_made" value="5-10"><span class="chip">5–10</span></label>
+              <label><input type="radio" name="investments_made" value="10+"><span class="chip">10+</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="q">What will your average check size be into each startup?<span class="req">*</span></div>
+            <p class="help">The minimum is $1K.</p>
+            <div class="chip-group">
+              <label><input type="radio" name="check_size" value="1k" required><span class="chip">$1K</span></label>
+              <label><input type="radio" name="check_size" value="2.5k"><span class="chip">$2.5K</span></label>
+              <label><input type="radio" name="check_size" value="5k"><span class="chip">$5K</span></label>
+              <label><input type="radio" name="check_size" value="10k+"><span class="chip">$10K+</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div class="fieldset-meta">Section 03</div>
+          <legend>Your <em>fit</em></legend>
+
+          <div class="field">
+            <div class="q">Why do you want to join Brydge Club?<span class="req">*</span></div>
+            <textarea name="why" required rows="5" placeholder="A few sentences is plenty."></textarea>
+          </div>
+
+          <div class="field">
+            <div class="q">How did you hear about Brydge Club?<span class="req">*</span></div>
+            <div class="chip-group">
+              <label><input type="radio" name="source" value="social" required><span class="chip">Social media</span></label>
+              <label><input type="radio" name="source" value="referral"><span class="chip">Friend / Colleague</span></label>
+              <label><input type="radio" name="source" value="event"><span class="chip">Event</span></label>
+              <label><input type="radio" name="source" value="other"><span class="chip">Other</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="q">Anything else we should know?</div>
+            <textarea name="notes" rows="4" placeholder="Optional."></textarea>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <div class="legal">By submitting you agree to our house rules and confidentiality policy. We'll never share your application outside the founding team.</div>
+          <button class="pill" type="submit">Submit application <span>&rarr;</span></button>
+        </div>
+      </form>
+
+      <div class="success" id="success" role="status" aria-live="polite">
+        <h3>Application received.</h3>
+        <p>Thank you — we'll read it carefully and come back to you within two weeks. If something urgent comes up in the meantime, write to hello@brydgeclub.com.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-row">
+      <div class="small">&copy; 2026 Brydge Club &middot; A private community</div>
+      <div class="foot-links">
+        <a href="index.html#membership">Membership</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="apply.html">Apply</a>
+        <a href="mailto:hello@brydgeclub.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

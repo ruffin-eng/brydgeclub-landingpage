@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brydge Club — More women on cap tables</title>
+  <meta name="description" content="Join a private collective of female angel investors, learn to invest, and access vetted deal flow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --wine:#4D282A;
+      --slate:#2F4A5E;
+      --sage:#829795;
+      --cream:#E8E6DF;
+      --sky:#B3C6D9;
+      --sky-deep:#8fafca;
+
+      --ink:var(--wine);
+      --paper:var(--cream);
+      --muted:#7d6d6e;
+      --line:rgba(77,40,42,0.18);
+      --line-soft:rgba(77,40,42,0.10);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+    body{
+      font-family:"Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+      font-weight:400; font-size:16px; line-height:1.55;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;}
+    img, svg{max-width:100%; display:block;}
+
+    .sans{ font-family:"Inter", sans-serif;}
+    .serif{ font-family:"Fraunces", Georgia, serif; font-variation-settings:"opsz" 144, "SOFT" 100;}
+
+    .label{
+      font-family:"Fraunces", serif;
+      font-variation-settings:"opsz" 14, "SOFT" 100;
+      font-weight:600; font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--sage);
+    }
+
+    /* PILL BUTTON */
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      padding:12px 20px;
+      font-family:"Inter", sans-serif;
+      font-weight:500; font-size:14px; letter-spacing:0.005em;
+      background:var(--ink); color:var(--cream);
+      border-radius:999px; border:1.5px solid var(--ink);
+      transition:background .2s ease, color .2s ease, transform .15s ease;
+      cursor:pointer;
+    }
+    .pill:hover{ background:transparent; color:var(--ink); transform:translateY(-1px);}
+    .pill.ghost{ background:transparent; color:var(--ink);}
+    .pill.ghost:hover{ background:var(--ink); color:var(--cream);}
+    .pill.lg{ padding:15px 24px; font-size:15px;}
+    .pill .arr{ display:inline-block; transition:transform .2s ease; margin-left:2px;}
+    .pill:hover .arr{ transform:translate(2px,-2px);}
+
+    /* TOP BAR (sits over the sky, glass pills) */
+    .topbar{
+      position:absolute; top:0; left:0; right:0; z-index:40;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:22px 32px;
+    }
+    .brand-mark{
+      width:36px; height:36px; border-radius:8px;
+      background:rgba(255,255,255,0.18);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.28);
+      display:flex; align-items:center; justify-content:center;
+      text-decoration:none; flex:none;
+    }
+    .brand-mark::before{
+      content:""; width:14px; height:14px;
+      background:#fff;
+      clip-path:polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .nav-pills{ display:flex; gap:6px;}
+    .nav-pill{
+      background:rgba(255,255,255,0.16);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.22);
+      color:#fff;
+      padding:11px 22px;
+      border-radius:999px;
+      font-family:"Inter", sans-serif;
+      font-weight:500; font-size:11.5px; letter-spacing:0.14em;
+      text-transform:uppercase; text-decoration:none;
+      transition:background .2s ease;
+    }
+    .nav-pill:hover{ background:rgba(255,255,255,0.26);}
+    .topbar-actions{ display:flex; gap:14px; align-items:center;}
+    .login-link{
+      color:#fff; font-family:"Inter", sans-serif;
+      font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
+      text-decoration:none; padding:10px 8px; opacity:0.92;
+    }
+    .login-link:hover{ opacity:1;}
+    .pill-white{
+      background:#fff; color:var(--ink);
+      padding:13px 22px; border-radius:999px;
+      font-family:"Inter", sans-serif; font-weight:600; font-size:11.5px; letter-spacing:0.14em;
+      text-transform:uppercase; text-decoration:none;
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid #fff;
+      transition:background .2s ease, color .2s ease;
+    }
+    .pill-white:hover{ background:transparent; color:#fff;}
+
+    /* legacy brand styles (used in footer) */
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 36, "SOFT" 100;
+      font-weight:700; font-size:20px; letter-spacing:-0.01em;
+      color:var(--ink); text-decoration:none;
+    }
+    .brand .mark{
+      width:22px; height:22px; border:1.5px solid var(--ink); border-radius:50%;
+      position:relative; display:inline-block;
+    }
+    .brand .mark::after{ content:""; position:absolute; inset:5px; border-radius:50%; background:var(--ink);}
+
+    /* HERO — photographic sky */
+    .hero{
+      position:relative; overflow:hidden;
+      padding:160px 20px 80px;
+      color:#fff;
+      background:
+        /* fade to cream at very bottom */
+        linear-gradient(180deg, transparent 78%, var(--cream) 100%),
+        /* soft cloud puffs */
+        radial-gradient(ellipse 600px 110px at 22% 28%, rgba(255,255,255,0.55), transparent 65%),
+        radial-gradient(ellipse 720px 130px at 88% 22%, rgba(255,255,255,0.45), transparent 65%),
+        radial-gradient(ellipse 540px 100px at 50% 60%, rgba(255,255,255,0.4), transparent 65%),
+        radial-gradient(ellipse 800px 150px at 12% 78%, rgba(255,255,255,0.5), transparent 65%),
+        radial-gradient(ellipse 700px 130px at 92% 70%, rgba(255,255,255,0.45), transparent 65%),
+        radial-gradient(ellipse 420px 80px at 65% 14%, rgba(255,255,255,0.35), transparent 65%),
+        radial-gradient(ellipse 380px 80px at 30% 88%, rgba(255,255,255,0.5), transparent 65%),
+        /* sky base */
+        linear-gradient(180deg, #1e3a5f 0%, #2e5582 25%, #4f7ba8 55%, #87aac9 80%, #B3C6D9 95%);
+      min-height:760px;
+    }
+    .hero-inner{
+      max-width:1100px; margin:0 auto; padding:0 20px;
+      text-align:center; position:relative; z-index:2;
+    }
+    .hero .eyebrow{
+      display:inline-block; padding:8px 18px; border-radius:999px;
+      background:rgba(179,198,217,0.55);
+      border:1px solid rgba(255,255,255,0.35);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase;
+      color:#1e3a5f;
+      margin-bottom:36px;
+    }
+    .hero h1{
+      margin:0 0 28px;
+      font-family:"Fraunces", Georgia, serif;
+      font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500;
+      font-size:clamp(56px, 9vw, 144px);
+      line-height:0.96; letter-spacing:-0.025em;
+      color:#fff;
+      text-shadow:0 2px 24px rgba(30,58,95,0.18);
+    }
+    .hero .lede{
+      font-family:"Inter", sans-serif;
+      font-size:clamp(16px, 1.5vw, 19px);
+      color:rgba(255,255,255,0.92);
+      max-width:48ch; margin:0 auto 36px;
+      line-height:1.5;
+      text-shadow:0 1px 12px rgba(30,58,95,0.2);
+    }
+    .hero .lede strong{ font-weight:600; color:#fff;}
+    .hero .hero-cta{ display:inline-flex; gap:10px; align-items:center;}
+    .hero .hero-cta .pill-white{ padding:16px 28px; font-size:12.5px;}
+
+    /* FLOATING MEMBER CARDS */
+    .float{ position:absolute; z-index:3;}
+    .member-card{
+      background:var(--cream);
+      border-radius:14px;
+      padding:10px 14px 10px 10px;
+      display:flex; gap:10px; align-items:center;
+      box-shadow:0 18px 40px rgba(30,58,95,0.22), 0 4px 10px rgba(30,58,95,0.1);
+      min-width:190px;
+    }
+    .member-card .logo-tile{
+      width:48px; height:48px; border-radius:12px; flex:none;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+    .member-card .logo-tile.gob{
+      background:#1a1414; color:#f4ebd6;
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-weight:700; font-style:italic; font-size:20px; letter-spacing:-0.02em;
+    }
+    .member-card .logo-tile.offe{
+      background:#e6dec9; color:#4D282A;
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-weight:600; font-size:18px; letter-spacing:-0.04em;
+    }
+    .member-card .logo-tile.bumo{
+      background:#ffd571; color:#3a2a14;
+      font-family:"Inter", sans-serif;
+      font-weight:900; font-size:13px; letter-spacing:-0.02em;
+      text-transform:lowercase;
+    }
+    .member-card .name{
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:14px; color:var(--ink); line-height:1.2;
+    }
+    .member-card .role{
+      font-family:"Inter", sans-serif; font-size:11.5px; color:var(--muted); line-height:1.3;
+      margin-top:1px;
+    }
+    .member-card .stat{
+      font-family:"Inter", sans-serif; font-weight:700; font-size:13px; color:var(--ink); line-height:1.2;
+      margin-top:5px;
+    }
+    .member-card .stat em{ color:var(--muted); font-weight:400; font-style:normal; font-size:11.5px;}
+
+    .f1{ left:4%; top:34%; transform:rotate(-6deg);}
+    .f2{ right:4%; top:30%; transform:rotate(5deg);}
+    .f3{ right:6%; bottom:30%; transform:rotate(-4deg);}
+
+    /* SPARKLE DECOS */
+    .spark{
+      position:absolute; z-index:2; pointer-events:none;
+    }
+    .s1{ left:8%; top:58%; width:56px; transform:rotate(-12deg); opacity:0.6;}
+    .s2{ right:9%; top:16%; width:64px; transform:rotate(10deg); opacity:0.55;}
+
+    /* FEATURED / ACCOLADES STRIP — small white text on sky */
+    .featured{
+      max-width:1200px; margin:0 auto; padding:32px 28px 56px;
+      text-align:center;
+      position:relative; z-index:2;
+    }
+    .featured .label{
+      display:block; margin-bottom:18px;
+      color:rgba(255,255,255,0.85); letter-spacing:0.18em;
+    }
+    .featured .logos{
+      display:flex; justify-content:center; align-items:center; gap:42px;
+      flex-wrap:wrap;
+    }
+    .logo{
+      font-family:"Inter", sans-serif; font-weight:700; font-size:18px;
+      color:#fff; letter-spacing:-0.01em; opacity:0.85;
+      text-transform:lowercase;
+    }
+    .logo.serif{ font-family:"Fraunces", serif; font-variation-settings:"opsz" 72, "SOFT" 100;
+      font-weight:700; text-transform:none; font-size:20px; letter-spacing:-0.005em;}
+    .logo.italic{ font-family:"Fraunces", serif; font-style:italic; font-weight:500;
+      text-transform:none; font-size:20px;}
+    .logo.condensed{ font-family:"Inter", sans-serif; font-weight:800; letter-spacing:0.04em; font-size:14px; text-transform:uppercase;}
+
+    /* MAIN CANVAS for rest of page */
+    .canvas{ max-width:1280px; margin:0 auto; padding:20px 18px 40px;}
+    .stack{ display:flex; flex-direction:column; gap:14px;}
+    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+    .grid-3{ display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;}
+    .grid-4{ display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;}
+
+    .card{
+      background:var(--cream);
+      border-radius:26px;
+      padding:34px;
+      position:relative;
+    }
+    .card.dark{ background:var(--slate); color:var(--cream);}
+    .card.dark .label{ color:var(--sky);}
+    .card.dark .pill{ background:var(--cream); color:var(--slate); border-color:var(--cream);}
+    .card.dark .pill:hover{ background:transparent; color:var(--cream);}
+
+    .display{
+      font-family:"Fraunces", serif;
+      font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-weight:600; letter-spacing:-0.02em; line-height:1;
+    }
+
+    /* STATS STRIP */
+    .stat-card{
+      padding:32px 28px; text-align:left;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .stat-card .num{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-weight:600; font-size:clamp(44px, 5vw, 68px); line-height:0.95; color:var(--ink);
+      letter-spacing:-0.02em;
+    }
+    .stat-card .num em{ color:var(--slate); font-style:italic; font-weight:500;}
+    .stat-card .lab{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 14, "SOFT" 100;
+      font-weight:600; font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+      color:var(--sage);
+    }
+    .stat-card.dark .num{ color:var(--cream);}
+    .stat-card.dark .num em{ color:var(--sky);}
+    .stat-card.dark .lab{ color:var(--sky);}
+
+    /* MEMBERSHIP INTRO */
+    .mem-intro{ padding:42px 44px;}
+    .mem-intro .mem-head{
+      display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:end;
+      margin-bottom:18px;
+    }
+    .mem-intro h2{
+      margin:8px 0 0;
+      font-size:clamp(34px, 4vw, 56px);
+    }
+    .mem-intro h2 em{ color:var(--slate); font-style:italic; font-weight:500;}
+    .mem-intro p{ color:var(--muted); margin:0; font-size:15.5px; max-width:50ch;}
+
+    /* SOLUTION CARDS */
+    .sol-card{
+      padding:28px 28px 26px;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .sol-card .icon{
+      width:42px; height:42px; border-radius:50%;
+      background:var(--ink); color:var(--cream);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:6px;
+    }
+    .sol-card .icon svg{ width:18px; height:18px;}
+    .sol-card h3{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 72, "SOFT" 100;
+      font-weight:600; font-size:24px; letter-spacing:-0.005em; line-height:1.1;
+      margin:0;
+    }
+    .sol-card p{ font-size:14px; color:var(--muted); margin:0; line-height:1.5;}
+    .sol-card.dark{ background:var(--slate); color:var(--cream);}
+    .sol-card.dark .icon{ background:var(--cream); color:var(--slate);}
+    .sol-card.dark p{ color:var(--sky);}
+
+    /* FEATURE CARD — ANGEL 101 */
+    .feature-card{
+      display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center;
+      padding:44px 44px;
+    }
+    .feature-card .copy h2{
+      margin:12px 0 14px;
+      font-size:clamp(30px, 3.4vw, 46px);
+    }
+    .feature-card .copy h2 em{ color:var(--slate); font-style:italic; font-weight:500;}
+    .feature-card .copy p{ color:var(--muted); margin:0 0 22px; font-size:15px; max-width:44ch;}
+    .feature-art{
+      aspect-ratio:4/3; width:100%; border-radius:18px; overflow:hidden; position:relative;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 120%, rgba(255,255,255,0.8) 0%, transparent 60%),
+        linear-gradient(180deg, var(--sky-deep) 0%, var(--sky) 70%);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .feature-art .a101{
+      text-align:center; color:var(--cream);
+      text-shadow:0 2px 10px rgba(77,40,42,0.15);
+    }
+    .feature-art .a101 .big{
+      font-family:"Inter", sans-serif; font-weight:900;
+      font-size:clamp(44px, 6vw, 78px); letter-spacing:-0.03em; line-height:0.95;
+    }
+    .feature-art .a101 .big .num{
+      font-family:"Fraunces", serif; font-weight:500; font-style:italic;
+      font-variation-settings:"opsz" 144, "SOFT" 100;
+    }
+    .feature-art .a101 .sub{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 72, "SOFT" 100;
+      font-style:italic; font-weight:500; font-size:clamp(14px, 1.6vw, 22px); margin-top:6px; color:var(--cream);
+    }
+
+    /* IMPACT (big stats strip in screenshot style) */
+    .impact-card{ padding:72px 56px; text-align:center;}
+    .impact-card .topline{ display:block; margin-bottom:14px;}
+    .impact-grid{
+      display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; align-items:center;
+      margin-top:8px;
+    }
+    .impact-cell{ padding:24px 20px; position:relative;}
+    .impact-cell + .impact-cell::before{
+      content:""; position:absolute; left:0; top:18%; height:64%;
+      width:1px; background:var(--line);
+    }
+    .impact-num{
+      font-family:"Inter", sans-serif;
+      font-weight:900;
+      font-size:clamp(34px, 4.4vw, 60px);
+      line-height:1; letter-spacing:-0.04em;
+      color:var(--ink); margin-bottom:14px;
+    }
+    .impact-num .em{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500; color:var(--slate);
+    }
+    .impact-lab{
+      font-family:"Inter", sans-serif;
+      font-weight:400; font-size:15px; color:var(--muted); line-height:1.4;
+    }
+
+    /* MEMBERSHIP INCLUDES */
+    .includes-card{ padding:64px 56px; text-align:center;}
+    .includes-head{ margin-bottom:44px;}
+    .includes-card h2{
+      margin:18px 0 0;
+      font-family:"Inter", sans-serif; font-weight:800;
+      font-size:clamp(36px, 5.4vw, 72px); letter-spacing:-0.032em; line-height:1;
+      color:var(--ink);
+    }
+    .includes-card h2 em{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500; color:var(--slate); letter-spacing:-0.02em;
+    }
+    .includes-grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px;
+      text-align:left; max-width:980px; margin:0 auto;
+    }
+    .includes-item{
+      background:rgba(255,255,255,0.45);
+      border:1px solid var(--line-soft);
+      border-radius:18px;
+      padding:28px 28px 30px;
+      display:flex; gap:20px; align-items:flex-start;
+      transition:border-color .2s ease, transform .2s ease;
+    }
+    .includes-item:hover{ border-color:var(--wine); transform:translateY(-2px);}
+    .includes-item .num{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500;
+      font-size:34px; line-height:1; color:var(--slate);
+      flex:none; padding-top:2px; min-width:36px;
+    }
+    .includes-item .body h3{
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:18px; line-height:1.3;
+      color:var(--ink); margin:0; letter-spacing:-0.005em;
+    }
+    .includes-item .body .detail{
+      margin-top:6px; font-size:13.5px; color:var(--muted); line-height:1.4;
+    }
+
+    /* FAQ */
+    .faq-card{ padding:72px 56px;}
+    .faq-head{ text-align:center; margin-bottom:48px;}
+    .faq-pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 18px; border-radius:999px;
+      border:1px solid var(--line); background:var(--cream);
+      font-family:"Inter", sans-serif;
+      font-weight:500; font-size:11.5px; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--ink);
+    }
+    .faq-pill .star{ color:var(--sky-deep); width:14px; height:14px;}
+    .faq-heading{
+      font-family:"Inter", sans-serif;
+      font-weight:800;
+      font-size:clamp(40px, 6.4vw, 88px);
+      letter-spacing:-0.035em; line-height:1.02;
+      margin:24px 0 0;
+      color:var(--ink);
+    }
+    .faq-heading em{
+      font-family:"Fraunces", serif; font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500; color:var(--slate);
+      letter-spacing:-0.025em;
+    }
+    .faq-list{ display:flex; flex-direction:column; gap:12px; max-width:920px; margin:0 auto;}
+    .faq-item{
+      background:var(--cream);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:22px 26px;
+      transition:border-color .2s ease;
+    }
+    .faq-item[open]{ border-color:var(--wine);}
+    .faq-item summary{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:20px; list-style:none; cursor:pointer;
+      font-family:"Inter", sans-serif;
+      font-weight:500; font-size:17px; color:var(--ink);
+      line-height:1.4;
+    }
+    .faq-item summary::-webkit-details-marker{ display:none;}
+    .faq-toggle{
+      width:32px; height:32px; border-radius:8px; flex:none;
+      background:rgba(77,40,42,0.06);
+      display:flex; align-items:center; justify-content:center;
+      transition:background .2s ease;
+    }
+    .faq-item:hover .faq-toggle{ background:rgba(77,40,42,0.1);}
+    .faq-toggle svg{ width:14px; height:14px; color:var(--ink);}
+    .faq-toggle .minus{ display:none;}
+    .faq-item[open] .faq-toggle .plus{ display:none;}
+    .faq-item[open] .faq-toggle .minus{ display:block;}
+    .faq-answer{
+      margin-top:14px; padding-top:14px;
+      border-top:1px solid var(--line-soft);
+      color:var(--muted); font-size:15.5px; line-height:1.6;
+    }
+
+    /* APPLY CTA */
+    .apply-card{
+      padding:52px 48px; display:grid; grid-template-columns:1.4fr 1fr; gap:36px; align-items:center;
+    }
+    .apply-card h2{
+      margin:10px 0 14px;
+      font-size:clamp(38px, 4.6vw, 62px);
+    }
+    .apply-card h2 em{ color:var(--sky); font-style:italic; font-weight:500;}
+    .apply-card p{ color:var(--sky); margin:0; font-size:16px; max-width:48ch;}
+    .apply-card .right{ display:flex; justify-content:flex-end;}
+
+    /* CLOSING SKY HERO (mirrors top hero) */
+    .footer-sky{
+      position:relative; overflow:hidden;
+      padding:140px 20px 90px; margin-top:18px;
+      color:#fff; text-align:center;
+      background:
+        /* cream fade in at top so it transitions out of the canvas */
+        linear-gradient(180deg, var(--cream) 0%, transparent 14%),
+        /* clouds */
+        radial-gradient(ellipse 720px 130px at 22% 32%, rgba(255,255,255,0.5), transparent 65%),
+        radial-gradient(ellipse 800px 140px at 86% 28%, rgba(255,255,255,0.45), transparent 65%),
+        radial-gradient(ellipse 580px 110px at 50% 65%, rgba(255,255,255,0.4), transparent 65%),
+        radial-gradient(ellipse 700px 120px at 12% 78%, rgba(255,255,255,0.42), transparent 65%),
+        radial-gradient(ellipse 640px 110px at 88% 76%, rgba(255,255,255,0.38), transparent 65%),
+        /* sky base — light at top, deep at bottom (mirrors top hero direction) */
+        linear-gradient(180deg, #B3C6D9 0%, #87aac9 22%, #4f7ba8 52%, #2e5582 80%, #1e3a5f 100%);
+    }
+    .footer-sky-inner{
+      max-width:1100px; margin:0 auto; padding:0 20px;
+      position:relative; z-index:2;
+    }
+    .footer-sky .eyebrow{
+      display:inline-block; padding:8px 18px; border-radius:999px;
+      background:rgba(255,255,255,0.18);
+      border:1px solid rgba(255,255,255,0.32);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      font-family:"Inter", sans-serif;
+      font-weight:600; font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase;
+      color:#fff; margin-bottom:30px;
+    }
+    .footer-sky h2{
+      margin:0 0 22px;
+      font-family:"Fraunces", Georgia, serif;
+      font-variation-settings:"opsz" 144, "SOFT" 100;
+      font-style:italic; font-weight:500;
+      font-size:clamp(46px, 7.6vw, 124px);
+      line-height:0.96; letter-spacing:-0.025em;
+      color:#fff;
+      text-shadow:0 2px 24px rgba(30,58,95,0.22);
+    }
+    .footer-sky .lede{
+      font-family:"Inter", sans-serif;
+      font-size:clamp(15px, 1.4vw, 18px);
+      color:rgba(255,255,255,0.92);
+      max-width:54ch; margin:0 auto 32px;
+      line-height:1.55;
+      text-shadow:0 1px 10px rgba(30,58,95,0.18);
+    }
+    .footer-sky .pill-white{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:16px 28px; border-radius:999px;
+      background:#fff; color:var(--ink); border:1px solid #fff;
+      font-family:"Inter", sans-serif; font-weight:600; font-size:12.5px;
+      letter-spacing:0.14em; text-transform:uppercase; text-decoration:none;
+      transition:background .2s ease, color .2s ease;
+    }
+    .footer-sky .pill-white:hover{ background:transparent; color:#fff;}
+
+    /* SLIM FOOTER BAR (sits on the deep sky) */
+    .footer-bar{
+      background:#1e3a5f; color:rgba(255,255,255,0.88);
+      padding:44px 28px 36px;
+    }
+    .footer-bar-inner{
+      max-width:1240px; margin:0 auto;
+      display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:36px;
+    }
+    .footer-bar .brand{ color:#fff;}
+    .footer-bar .brand .mark{ border-color:#fff;}
+    .footer-bar .brand .mark::after{ background:#fff;}
+    .footer-bar .brand-block p{
+      margin:14px 0 0; font-size:13.5px; color:rgba(255,255,255,0.7); max-width:34ch; line-height:1.5;
+    }
+    .footer-bar h4{
+      font-family:"Inter", sans-serif; font-weight:600; font-size:11px;
+      letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.55);
+      margin:0 0 14px;
+    }
+    .footer-bar ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;}
+    .footer-bar ul a{ text-decoration:none; color:rgba(255,255,255,0.88); font-size:14px;}
+    .footer-bar ul a:hover{ color:#fff;}
+    .footer-bar-bottom{
+      max-width:1240px; margin:32px auto 0;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,0.12);
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
+      color:rgba(255,255,255,0.55);
+    }
+
+    /* responsive */
+    @media (max-width: 1000px){
+      .float.f1, .float.f2, .float.f3{ display:none;}
+      .spark{ display:none;}
+      .hero{ padding:120px 16px 60px; min-height:auto;}
+      .topbar{ padding:14px 18px;}
+      .nav-pills{ display:none;}
+      .login-link{ display:none;}
+      .feature-card, .apply-card{ grid-template-columns:1fr; gap:24px; padding:32px;}
+      .impact-card, .faq-card, .includes-card{ padding:48px 28px;}
+      .includes-grid{ grid-template-columns:1fr;}
+      .impact-grid{ grid-template-columns:1fr; gap:8px;}
+      .impact-cell + .impact-cell::before{ display:none;}
+      .impact-cell{ border-top:1px solid var(--line); padding:28px 12px;}
+      .impact-cell:first-child{ border-top:none;}
+      .mem-intro .mem-head{ grid-template-columns:1fr; gap:14px;}
+      .grid-4{ grid-template-columns:1fr 1fr;}
+      .grid-3{ grid-template-columns:1fr;}
+      .grid-2{ grid-template-columns:1fr;}
+      .featured .logos{ gap:28px;}
+      .footer-sky{ padding:96px 20px 72px;}
+      .footer-bar-inner{ grid-template-columns:1fr 1fr;}
+      .footer-bar .brand-block{ grid-column:1 / -1;}
+    }
+    @media (max-width: 540px){
+      .grid-4{ grid-template-columns:1fr;}
+      .apply-card .right{ justify-content:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <header class="topbar">
+      <a class="brand-mark" href="#" aria-label="Brydge Club home"></a>
+      <nav class="nav-pills" aria-label="Primary">
+        <a class="nav-pill" href="#membership">Membership</a>
+        <a class="nav-pill" href="#faq">FAQ</a>
+      </nav>
+      <div class="topbar-actions">
+        <a class="login-link" href="#">Member login</a>
+        <a class="pill-white" href="apply.html">Apply <span class="arr">&rarr;</span></a>
+      </div>
+    </header>
+
+    <!-- Sparkle deco -->
+    <svg class="spark s1" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#E8E6DF"/>
+          <stop offset="0.5" stop-color="#B3C6D9"/>
+          <stop offset="1" stop-color="#8fafca"/>
+        </linearGradient>
+      </defs>
+      <path d="M50 5 L58 42 L95 50 L58 58 L50 95 L42 58 L5 50 L42 42 Z" fill="url(#sg1)" stroke="#4D282A" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    <svg class="spark s2" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#E8E6DF"/>
+          <stop offset="0.5" stop-color="#B3C6D9"/>
+          <stop offset="1" stop-color="#8fafca"/>
+        </linearGradient>
+      </defs>
+      <g fill="url(#sg2)" stroke="#4D282A" stroke-width="1.5" stroke-linejoin="round">
+        <circle cx="50" cy="20" r="14"/>
+        <circle cx="80" cy="50" r="14"/>
+        <circle cx="50" cy="80" r="14"/>
+        <circle cx="20" cy="50" r="14"/>
+      </g>
+    </svg>
+
+    <!-- Floating portfolio cards -->
+    <div class="float f1">
+      <div class="member-card">
+        <div class="logo-tile gob">GOB</div>
+        <div>
+          <div class="name">GOB</div>
+          <div class="role">Portfolio company</div>
+        </div>
+      </div>
+    </div>
+    <div class="float f2">
+      <div class="member-card">
+        <div class="logo-tile offe">Offe</div>
+        <div>
+          <div class="name">Offe Market</div>
+          <div class="role">Portfolio company</div>
+        </div>
+      </div>
+    </div>
+    <div class="float f3">
+      <div class="member-card">
+        <div class="logo-tile bumo">bumo</div>
+        <div>
+          <div class="name">Bumo</div>
+          <div class="role">Portfolio company</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-inner">
+      <span class="eyebrow">Next Cohort Launches May 27 — Apply Now</span>
+      <h1>We get women<br/>on cap tables.</h1>
+      <p class="lede">Join a private collective of female angel investors, learn to invest, and access vetted deal flow.</p>
+      <div class="hero-cta">
+        <a class="pill-white" href="apply.html">Apply for the next cohort <span class="arr">&rarr;</span></a>
+      </div>
+    </div>
+
+    <div class="featured">
+      <span class="label">Our members come from companies like</span>
+      <div class="logos">
+        <span class="logo serif">Cambridge</span>
+        <span class="logo condensed">BAIN &amp; COMPANY</span>
+        <span class="logo">gusto</span>
+        <span class="logo condensed">AIRBNB</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="canvas">
+    <div class="stack">
+
+      <!-- IMPACT -->
+      <section class="card impact-card">
+        <span class="label topline">Brydge Club at a glance</span>
+        <div class="impact-grid">
+          <div class="impact-cell">
+            <div class="impact-num">150</div>
+            <div class="impact-lab">Members</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-num">$1K<span class="em">&ndash;</span>50K</div>
+            <div class="impact-lab">Per-check range</div>
+          </div>
+          <div class="impact-cell">
+            <div class="impact-num">$300K+</div>
+            <div class="impact-lab">Deployed to date</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEMBERSHIP INCLUDES -->
+      <section class="card includes-card" id="membership">
+        <div class="includes-head">
+          <span class="label">02 — Membership</span>
+          <h2>Membership <em>Includes</em></h2>
+        </div>
+        <div class="includes-grid">
+          <div class="includes-item">
+            <span class="num">01</span>
+            <div class="body">
+              <h3>Angel Investing Curriculum</h3>
+              <div class="detail">Next live cohort launches May 27th</div>
+            </div>
+          </div>
+          <div class="includes-item">
+            <span class="num">02</span>
+            <div class="body">
+              <h3>Vetted Private Angel Opportunities</h3>
+              <div class="detail">Minimums as low as $1K</div>
+            </div>
+          </div>
+          <div class="includes-item">
+            <span class="num">03</span>
+            <div class="body">
+              <h3>Access to Private Slack Community</h3>
+            </div>
+          </div>
+          <div class="includes-item">
+            <span class="num">04</span>
+            <div class="body">
+              <h3>IRL &amp; Virtual Member Meetups</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="card faq-card" id="faq">
+        <div class="faq-head">
+          <span class="faq-pill">
+            <svg class="star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2 L14.2 9.2 L21.5 9.5 L15.7 13.9 L18 21 L12 16.8 L6 21 L8.3 13.9 L2.5 9.5 L9.8 9.2 Z"/>
+            </svg>
+            Frequently asked questions
+          </span>
+          <h2 class="faq-heading">Everything You <em>Need to Know</em></h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>
+              Who is Brydge Club for?
+              <span class="faq-toggle" aria-hidden="true">
+                <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg class="minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer">Accredited investors ready to make their first private angel investment. No prior angel investing experience required!</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              What are typical check sizes?
+              <span class="faq-toggle" aria-hidden="true">
+                <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg class="minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer">Our members can invest anywhere from $1K&ndash;$50K into Brydge-sourced deals. There's no minimum annual commitment — you invest only in the companies that fit your thesis.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              What does a cohort look like?
+              <span class="faq-toggle" aria-hidden="true">
+                <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg class="minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer">Cohorts run for one month with weekly sessions covering everything you need to know to make your first investment with Brydge Club. We cover evaluating startups, investment terms, diligence checklists, and more!</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              Do I need to be an accredited investor?
+              <span class="faq-toggle" aria-hidden="true">
+                <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg class="minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </summary>
+            <div class="faq-answer">Yes. Investments through Brydge are private placements, so members must qualify as accredited investors under SEC rules.</div>
+          </details>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- CLOSING SKY HERO -->
+  <section class="footer-sky">
+    <div class="footer-sky-inner">
+      <span class="eyebrow">Cohort launches May 27</span>
+      <h2>Apply to join<br/>our next cohort.</h2>
+      <p class="lede">Applications are reviewed by the founding team and replied to within two weeks.</p>
+      <a class="pill-white" href="apply.html">Apply now <span>&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- FOOTER BAR -->
+  <footer class="footer-bar">
+    <div class="footer-bar-inner">
+      <div class="brand-block">
+        <a class="brand" href="#"><span class="mark" aria-hidden="true"></span>Brydge Club</a>
+        <p>A private collective of female angel investors. We get women on cap tables.</p>
+      </div>
+      <div>
+        <h4>Club</h4>
+        <ul>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="apply.html">Apply</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Substack</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@brydgeclub.com">hello@brydgeclub.com</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">House rules</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bar-bottom">
+      <span>&copy; 2026 Brydge Club</span>
+      <span>The International Club for Female Angel Investors</span>
+    </div>
+  </footer>
+
+</body>
+</html>
